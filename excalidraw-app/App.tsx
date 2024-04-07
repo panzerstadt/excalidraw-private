@@ -1,7 +1,6 @@
 import polyfill from "../packages/excalidraw/polyfill";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { trackEvent } from "../packages/excalidraw/analytics";
 import { getDefaultAppState } from "../packages/excalidraw/appState";
 import { ErrorDialog } from "../packages/excalidraw/components/ErrorDialog";
 import { TopErrorBoundary } from "./components/TopErrorBoundary";
@@ -315,10 +314,10 @@ const ExcalidrawWrapper = () => {
   }
 
   useEffect(() => {
-    trackEvent("load", "frame", getFrame());
+    getFrame();
     // Delayed so that the app has a time to load the latest SW
     setTimeout(() => {
-      trackEvent("load", "version", getVersion());
+      getVersion();
     }, VERSION_TIMEOUT);
   }, []);
 

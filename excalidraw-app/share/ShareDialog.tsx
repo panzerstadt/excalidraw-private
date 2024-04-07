@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import * as Popover from "@radix-ui/react-popover";
 import { copyTextToSystemClipboard } from "../../packages/excalidraw/clipboard";
-import { trackEvent } from "../../packages/excalidraw/analytics";
-import { getFrame } from "../../packages/excalidraw/utils";
 import { useI18n } from "../../packages/excalidraw/i18n";
 import { KEYS } from "../../packages/excalidraw/keys";
 import { Dialog } from "../../packages/excalidraw/components/Dialog";
@@ -172,7 +170,6 @@ const ActiveRoomDialog = ({
           label={t("roomDialog.button_stopSession")}
           icon={playerStopFilledIcon}
           onClick={() => {
-            trackEvent("share", "room closed");
             collabAPI.stopCollaboration();
             if (!collabAPI.isCollaborating()) {
               handleClose();
@@ -206,7 +203,6 @@ const ShareDialogPicker = (props: ShareDialogProps) => {
           label={t("roomDialog.button_startSession")}
           icon={playerPlayIcon}
           onClick={() => {
-            trackEvent("share", "room creation", `ui (${getFrame()})`);
             collabAPI.startCollaboration(null);
           }}
         />

@@ -14,7 +14,6 @@ import {
   SocketId,
   UserIdleState,
 } from "../../packages/excalidraw/types";
-import { trackEvent } from "../../packages/excalidraw/analytics";
 import throttle from "lodash.throttle";
 import { newElementWith } from "../../packages/excalidraw/element/mutateElement";
 import { encryptData } from "../../packages/excalidraw/data/encryption";
@@ -41,7 +40,6 @@ class Portal {
     this.socket.on("init-room", () => {
       if (this.socket) {
         this.socket.emit("join-room", this.roomId);
-        trackEvent("share", "room joined");
       }
     });
     this.socket.on("new-user", async (_socketId: string) => {
